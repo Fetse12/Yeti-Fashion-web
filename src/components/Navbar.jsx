@@ -6,6 +6,7 @@ const links = [
   { href: "#lab", label: "Lab" },
   { href: "#gallery", label: "Gallery" },
   { href: "#blog", label: "Blog / News" },
+  { href: "#contact", label: "Contact" },
 ];
 
 function LanguageSwitcher() {

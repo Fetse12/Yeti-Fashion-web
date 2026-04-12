@@ -8,6 +8,7 @@ const seed = require("./seed");
 const authRoutes = require("./routes/auth");
 const galleryRoutes = require("./routes/gallery");
 const blogRoutes = require("./routes/blog");
+const messageRoutes = require("./routes/messages");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -29,6 +30,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/api/auth", authRoutes);
 app.use("/api/gallery", galleryRoutes);
 app.use("/api/blog", blogRoutes);
+app.use("/api/messages", messageRoutes);
 
 // Health check
 app.get("/api/health", (req, res) => {

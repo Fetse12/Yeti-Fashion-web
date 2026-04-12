@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import AdminSidebar from "../components/admin/AdminSidebar.jsx";
 import GalleryManager from "../components/admin/GalleryManager.jsx";
 import BlogManager from "../components/admin/BlogManager.jsx";
+import MessageManager from "../components/admin/MessageManager.jsx";
 
 export default function Admin() {
   const navigate = useNavigate();
@@ -61,6 +62,7 @@ export default function Admin() {
         <div className="mx-auto max-w-5xl px-6 py-8">
           {active === "gallery" && <GalleryManager />}
           {active === "blog" && <BlogManager />}
+          {active === "messages" && <MessageManager />}
         </div>
       </main>
     </div>

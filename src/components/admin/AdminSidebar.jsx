@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 export default function AdminSidebar({ active, setActive, onLogout }) {
   const tabs = [
     {
@@ -22,7 +24,35 @@ export default function AdminSidebar({ active, setActive, onLogout }) {
         </svg>
       ),
     },
+    {
+      id: "messages",
+      label: "Messages",
+      icon: (
+        <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+      ),
+    },
   ];
+
+  const [msgCount, setMsgCount] = useState(0);
+
+  useEffect(() => {
+    const fetchCount = async () => {
+      try {
+        const res = await fetch(`${import.meta.env.VITE_API_URL || ""}/api/messages/count`, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("yeti_token")}` }
+        });
+        const data = await res.json();
+        setMsgCount(data.count);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchCount();
+    const interval = setInterval(fetchCount, 30000); // Check every 30s
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <aside className="flex h-screen w-64 shrink-0 flex-col border-r border-neutral-800 bg-neutral-900">
@@ -59,7 +89,12 @@ export default function AdminSidebar({ active, setActive, onLogout }) {
             }`}
           >
             {tab.icon}
-            {tab.label}
+            <span className="flex-1 text-left">{tab.label}</span>
+            {tab.id === "messages" && msgCount > 0 && (
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-yeti-lime text-[10px] font-bold text-neutral-900">
+                {msgCount}
+              </span>
+            )}
           </button>
         ))}
       </nav>
