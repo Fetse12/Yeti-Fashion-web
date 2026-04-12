@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Custom cursor: hide default only when needle is active (fine pointer) */
+@media (pointer: fine) {
+  body.yeti-cursor-hide,
+  body.yeti-cursor-hide * {
+    cursor: none !important;
+  }
+}
+
+/* ========================================================
+   Google Translate Widget Core Customization
+   ======================================================== */
+/* The ultimate banner override: hit the injected body child wrapper */
+body > .skiptranslate {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+}
+
+iframe.goog-te-banner-frame {
+  display: none !important;
+}
+
+body {
+  top: 0px !important; 
+  position: static !important;
+}
+
+/* Clean up hover tooltips floating over text */
+.goog-tooltip {
+  display: none !important;
+}
+
+.goog-tooltip:hover {
+  display: none !important;
+}
+
+/* Remove weird background highlights on translated elements */
+.goog-text-highlight {
+  background-color: transparent !important;
+  border: none !important; 
+  box-shadow: none !important;
+}
+
+/* Hide the native widget as we provide our own custom React UI dropdown now */
+#google_translate_element {
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  position: absolute !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
