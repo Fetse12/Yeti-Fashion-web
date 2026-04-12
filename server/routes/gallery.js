@@ -1,21 +1,13 @@
 const express = require("express");
 const multer = require("multer");
 const path = require("path");
+const { storage } = require("../config/cloudinary");
 const Gallery = require("../models/Gallery");
 const auth = require("../middleware/auth");
 
 const router = express.Router();
 
-// Multer config for image uploads
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, "../uploads"));
-  },
-  filename: (req, file, cb) => {
-    const uniqueName = `gallery-${Date.now()}-${Math.round(Math.random() * 1e9)}${path.extname(file.originalname)}`;
-    cb(null, uniqueName);
-  },
-});
+// Removed local diskStorage
 
 const upload = multer({
   storage,
@@ -47,7 +39,7 @@ router.get("/", async (req, res) => {
 router.post("/", auth, upload.single("image"), async (req, res) => {
   try {
     const { title, category, description, gradient } = req.body;
-    const image = req.file ? `/uploads/${req.file.filename}` : "";
+    const image = req.file ? req.file.path : "";
 
     const item = await Gallery.create({
       title,
@@ -70,7 +62,7 @@ router.put("/:id", auth, upload.single("image"), async (req, res) => {
   try {
     const updates = { ...req.body };
     if (req.file) {
-      updates.image = `/uploads/${req.file.filename}`;
+      updates.image = req.file.path;
     }
 
     const item = await Gallery.findByIdAndUpdate(req.params.id, updates, {

@@ -1,6 +1,9 @@
 const express = require("express");
 const Blog = require("../models/Blog");
 const auth = require("../middleware/auth");
+const multer = require("multer");
+const { storage } = require("../config/cloudinary");
+const upload = multer({ storage });
 
 const router = express.Router();
 
@@ -19,10 +22,11 @@ router.get("/", async (req, res) => {
 /**
  * POST /api/blog — protected, create post
  */
-router.post("/", auth, async (req, res) => {
+router.post("/", auth, upload.single("image"), async (req, res) => {
   try {
     const { title, category, excerpt, content, date, readTime, featured } =
       req.body;
+    const coverImage = req.file ? req.file.path : "";
 
     const post = await Blog.create({
       title,
@@ -32,6 +36,7 @@ router.post("/", auth, async (req, res) => {
       date,
       readTime: readTime || "3 min",
       featured: featured || false,
+      coverImage,
     });
 
     res.status(201).json(post);

@@ -13,6 +13,7 @@ const fallbackItems = [
     description: "Students mastering the art of fabric draping on dress forms.",
     gradient: "from-emerald-900 via-neutral-900 to-neutral-800",
     accent: "bg-emerald-400/20",
+    image: "/images/gallery_draping.png",
   },
   {
     _id: "f2",
@@ -21,6 +22,7 @@ const fallbackItems = [
     description: "Precision CAD patterns graded for high-volume manufacturing.",
     gradient: "from-neutral-800 via-neutral-900 to-emerald-950",
     accent: "bg-yeti-lime/20",
+    image: "/images/gallery_pattern.png",
   },
   {
     _id: "f3",
@@ -30,6 +32,7 @@ const fallbackItems = [
       "Industrial sewing operations producing quality garments at scale.",
     gradient: "from-neutral-900 via-emerald-950 to-neutral-800",
     accent: "bg-emerald-500/15",
+    image: "/images/gallery_sewing.png",
   },
   {
     _id: "f4",
@@ -38,6 +41,7 @@ const fallbackItems = [
     description: "Final year showcase featuring original student designs.",
     gradient: "from-emerald-950 via-neutral-900 to-neutral-800",
     accent: "bg-yeti-lime/15",
+    image: "/images/gallery_collection.png",
   },
   {
     _id: "f5",
@@ -46,6 +50,7 @@ const fallbackItems = [
     description: "Testing fabric behavior, shrinkage, and wash durability.",
     gradient: "from-neutral-800 via-emerald-950 to-neutral-900",
     accent: "bg-emerald-400/15",
+    image: "/images/gallery_fabric_lab.png",
   },
   {
     _id: "f6",
@@ -55,6 +60,7 @@ const fallbackItems = [
       "Annual runway event celebrating Yeti talent and craftsmanship.",
     gradient: "from-neutral-900 via-neutral-800 to-emerald-950",
     accent: "bg-yeti-lime/20",
+    image: "/images/gallery_fashion_show.png",
   },
 ];
 
@@ -91,7 +97,7 @@ function GalleryCard({ item, index }) {
           <img
             src={`${API_URL}${item.image}`}
             alt={item.title}
-            className="absolute inset-0 h-full w-full object-cover opacity-60 transition-opacity duration-500 group-hover:opacity-80"
+            className="absolute inset-0 h-full w-full object-cover opacity-75 transition-opacity duration-500 group-hover:opacity-95"
           />
         )}
 

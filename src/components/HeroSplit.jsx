@@ -141,7 +141,7 @@ function CenterWireframeGraphic() {
   );
 }
 
-export default function HeroSplit() {
+export default function HeroSplit({ onEnrollClick }) {
   const [hover, setHover] = useState(null);
 
   const flexAcademy =
@@ -182,12 +182,12 @@ export default function HeroSplit() {
             Hands-on training from sketch to pattern.
           </p>
           <div className="mt-8 overflow-hidden">
-            <a
-              href="#enroll"
+            <button
+              onClick={() => onEnrollClick?.()}
               className="inline-flex items-center gap-2 border-2 border-white/80 bg-white/10 px-8 py-3 font-sans text-sm font-bold uppercase tracking-wider text-white backdrop-blur-md transition-all hover:bg-white hover:text-neutral-950 md:translate-y-[150%] md:opacity-0 md:transition-all md:duration-500 md:group-hover:translate-y-0 md:group-hover:opacity-100"
             >
               Explore Course
-            </a>
+            </button>
           </div>
         </div>
       </motion.div>
@@ -224,12 +224,12 @@ export default function HeroSplit() {
             Commercial fabrication for your brand.
           </p>
           <div className="mt-8 overflow-hidden">
-            <a
-              href="#enroll"
+            <button
+              onClick={() => onEnrollClick?.()}
               className="inline-flex items-center gap-2 bg-yeti-lime px-8 py-3 font-sans text-sm font-bold uppercase tracking-wider text-neutral-950 shadow-lg shadow-yeti-lime/20 transition-all hover:bg-yeti-lime-dark md:translate-y-[150%] md:opacity-0 md:transition-all md:duration-500 md:group-hover:translate-y-0 md:group-hover:opacity-100"
             >
               Request Quote
-            </a>
+            </button>
           </div>
         </div>
       </motion.div>

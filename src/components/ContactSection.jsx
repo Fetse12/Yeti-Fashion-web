@@ -33,12 +33,12 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="relative bg-white py-24 lg:py-32">
+    <section id="contact" className="relative bg-white py-16 sm:py-20 lg:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:items-center">
+        <div className="grid grid-cols-1 gap-10 sm:gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
           {/* Form Side */}
           <div className="order-2 lg:order-1">
-            <h2 className="font-sans text-4xl font-black uppercase tracking-tight text-neutral-900 sm:text-5xl">
+            <h2 className="font-sans text-3xl font-black uppercase tracking-tight text-neutral-900 sm:text-4xl lg:text-5xl">
               Get in Touch
             </h2>
             <p className="mt-4 font-sans text-lg text-neutral-600">
@@ -129,28 +129,30 @@ export default function ContactSection() {
           </div>
 
           {/* Map Side */}
-          <div className="order-1 h-[400px] overflow-hidden rounded-3xl bg-neutral-100 shadow-2xl lg:order-2 lg:h-[600px]">
-            <iframe
-              title="Yeti Fashion Location"
-              width="100%"
-              height="100%"
-              frameBorder="0"
-              scrolling="no"
-              marginHeight="0"
-              marginWidth="0"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3936.425128033626!2d39.26629!3d8.54471!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b1f6629916ab9%3A0xe78ab0e64c24f60!2sMebrat%20Hail%2C%20Adama!5e0!3m2!1sen!2set!4v1712950000000!5m2!1sen!2set"
-              style={{ filter: "grayscale(0.1) contrast(1.1)" }}
-            />
-            <div className="absolute bottom-10 right-10 z-10 hidden rounded-2xl bg-white p-6 shadow-2xl lg:block">
-              <p className="font-sans text-xs font-bold uppercase tracking-widest text-yeti-lime">
-                Our Location
-              </p>
-              <h3 className="mt-2 font-sans text-lg font-bold text-neutral-900">
-                Ghenet Commercial Center
-              </h3>
-              <p className="mt-1 font-sans text-sm text-neutral-500">
-                4th Floor, Adama Mebrat Hail
-              </p>
+          <div className="order-1 lg:order-2">
+            <div className="relative h-[300px] overflow-hidden rounded-2xl bg-neutral-100 shadow-2xl sm:h-[400px] lg:h-[600px] lg:rounded-3xl">
+              <iframe
+                title="Yeti Fashion Location"
+                width="100%"
+                height="100%"
+                frameBorder="0"
+                scrolling="no"
+                marginHeight="0"
+                marginWidth="0"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3936.425128033626!2d39.26629!3d8.54471!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b1f6629916ab9%3A0xe78ab0e64c24f60!2sMebrat%20Hail%2C%20Adama!5e0!3m2!1sen!2set!4v1712950000000!5m2!1sen!2set"
+                style={{ filter: "grayscale(0.1) contrast(1.1)" }}
+              />
+              <div className="absolute bottom-4 left-4 right-4 z-10 rounded-xl bg-white/95 p-4 shadow-xl backdrop-blur-sm sm:left-auto sm:right-6 sm:bottom-6 sm:w-auto sm:rounded-2xl sm:p-6 sm:shadow-2xl lg:bottom-10 lg:right-10">
+                <p className="font-sans text-[10px] font-bold uppercase tracking-widest text-yeti-lime sm:text-xs">
+                  Our Location
+                </p>
+                <h3 className="mt-1 font-sans text-sm font-bold text-neutral-900 sm:mt-2 sm:text-lg">
+                  Ghenet Commercial Center
+                </h3>
+                <p className="mt-0.5 font-sans text-xs text-neutral-500 sm:mt-1 sm:text-sm">
+                  4th Floor, Adama Mebrat Hail
+                </p>
+              </div>
             </div>
           </div>
         </div>

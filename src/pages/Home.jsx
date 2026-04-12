@@ -7,11 +7,11 @@ import InfoTicker from "../components/InfoTicker.jsx";
 import LabSection from "../components/LabSection.jsx";
 import ProcessScroll from "../components/ProcessScroll.jsx";
 
-export default function Home() {
+export default function Home({ onEnrollClick }) {
   return (
     <>
       <main>
-        <HeroSplit />
+        <HeroSplit onEnrollClick={onEnrollClick} />
         <InfoTicker />
         <ProcessScroll />
         <LabSection />

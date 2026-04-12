@@ -59,21 +59,21 @@ export default function MessageManager() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-white">Inquiries</h2>
+          <h2 className="text-xl font-bold text-white sm:text-2xl">Inquiries</h2>
           <p className="text-sm text-neutral-500">Manage messages from the contact form</p>
         </div>
       </div>
 
       <div className="grid gap-4">
         {messages.length === 0 ? (
-          <div className="rounded-xl border border-dashed border-neutral-800 p-12 text-center text-neutral-500">
+          <div className="rounded-xl border border-dashed border-neutral-800 p-8 text-center text-neutral-500 sm:p-12">
             No messages found.
           </div>
         ) : (
           messages.map((msg) => (
             <div
               key={msg._id}
-              className={`relative overflow-hidden rounded-xl border p-6 transition-all ${
+              className={`relative overflow-hidden rounded-xl border p-4 transition-all sm:p-6 ${
                 msg.status === "unread"
                   ? "border-yeti-lime bg-neutral-900 shadow-[0_0_15px_rgba(154,205,50,0.05)]"
                   : "border-neutral-800 bg-neutral-900/50"
@@ -88,7 +88,7 @@ export default function MessageManager() {
               <div className="flex flex-wrap justify-between gap-4">
                 <div className="space-y-1">
                   <h3 className="font-bold text-white">{msg.name}</h3>
-                  <div className="flex gap-4 text-xs text-neutral-400">
+                  <div className="flex flex-col gap-1 text-xs text-neutral-400 sm:flex-row sm:gap-4">
                     <span className="flex items-center gap-1">
                       <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -108,11 +108,11 @@ export default function MessageManager() {
                 </div>
               </div>
 
-              <div className="mt-4 rounded-lg bg-black/30 p-4 text-sm leading-relaxed text-neutral-300">
+              <div className="mt-3 rounded-lg bg-black/30 p-3 text-sm leading-relaxed text-neutral-300 sm:mt-4 sm:p-4">
                 {msg.message}
               </div>
 
-              <div className="mt-6 flex justify-end gap-3">
+              <div className="mt-4 flex flex-wrap justify-end gap-2 sm:mt-6 sm:gap-3">
                 {msg.status === "unread" && (
                   <button
                     onClick={() => markAsRead(msg._id)}

@@ -108,16 +108,16 @@ export default function GalleryManager() {
   return (
     <div>
       {/* Header */}
-      <div className="mb-6 flex items-center justify-between">
+      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h2 className="font-serif text-2xl font-bold text-white">Gallery</h2>
+          <h2 className="font-serif text-xl font-bold text-white sm:text-2xl">Gallery</h2>
           <p className="mt-1 font-sans text-sm text-neutral-400">
             Manage gallery items displayed on the homepage.
           </p>
         </div>
         <button
           onClick={openNew}
-          className="flex items-center gap-2 rounded-lg bg-yeti-lime px-4 py-2.5 font-sans text-sm font-bold text-neutral-900 shadow-md shadow-yeti-lime/20 transition hover:bg-yeti-lime-dark"
+          className="flex w-full items-center justify-center gap-2 rounded-lg bg-yeti-lime px-4 py-2.5 font-sans text-sm font-bold text-neutral-900 shadow-md shadow-yeti-lime/20 transition hover:bg-yeti-lime-dark sm:w-auto"
         >
           <svg className="h-4 w-4" viewBox="0 0 16 16" fill="none">
             <path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
@@ -241,7 +241,7 @@ export default function GalleryManager() {
           </button>
         </div>
       ) : (
-        <div className="overflow-hidden rounded-xl border border-neutral-800">
+        <div className="overflow-hidden rounded-xl border border-neutral-800 overflow-x-auto">
           <table className="w-full text-left font-sans text-sm">
             <thead>
               <tr className="border-b border-neutral-800 bg-neutral-800/50">

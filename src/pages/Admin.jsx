@@ -4,10 +4,24 @@ import AdminSidebar from "../components/admin/AdminSidebar.jsx";
 import GalleryManager from "../components/admin/GalleryManager.jsx";
 import BlogManager from "../components/admin/BlogManager.jsx";
 import MessageManager from "../components/admin/MessageManager.jsx";
+import EnrollmentManager from "../components/admin/EnrollmentManager.jsx";
+import SettingsManager from "../components/admin/SettingsManager.jsx";
 
 export default function Admin() {
   const navigate = useNavigate();
-  const [active, setActive] = useState("gallery");
+
+  // Determine initial tab based on permissions
+  const getInitialTab = () => {
+    const userStr = localStorage.getItem("yeti_user");
+    if (!userStr) return "gallery";
+    
+    const user = JSON.parse(userStr);
+    if (user.role === "superadmin") return "gallery";
+    if (user.permissions && user.permissions.length > 0) return user.permissions[0];
+    return "settings";
+  };
+
+  const [active, setActive] = useState(getInitialTab);
 
   useEffect(() => {
     const token = localStorage.getItem("yeti_token");
@@ -23,7 +37,7 @@ export default function Admin() {
   };
 
   return (
-    <div className="flex min-h-screen bg-neutral-950">
+    <div className="flex min-h-screen flex-col bg-neutral-950 lg:flex-row">
       <AdminSidebar
         active={active}
         setActive={setActive}
@@ -31,7 +45,7 @@ export default function Admin() {
       />
       <main className="flex-1 overflow-y-auto">
         {/* Top bar */}
-        <div className="sticky top-0 z-10 flex items-center justify-between border-b border-neutral-800 bg-neutral-950/90 px-6 py-4 backdrop-blur-md">
+        <div className="sticky top-0 z-10 flex items-center justify-between border-b border-neutral-800 bg-neutral-950/90 px-4 py-4 backdrop-blur-md sm:px-6">
           <h1 className="font-sans text-sm font-bold uppercase tracking-[0.2em] text-neutral-400">
             Dashboard
           </h1>
@@ -50,7 +64,7 @@ export default function Admin() {
                   strokeLinejoin="round"
                 />
               </svg>
-              View Site
+              <span className="hidden sm:inline">View Site</span>
             </a>
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-yeti-lime/10 text-xs font-bold text-yeti-lime">
               A
@@ -59,10 +73,12 @@ export default function Admin() {
         </div>
 
         {/* Content */}
-        <div className="mx-auto max-w-5xl px-6 py-8">
+        <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 sm:py-8">
           {active === "gallery" && <GalleryManager />}
           {active === "blog" && <BlogManager />}
           {active === "messages" && <MessageManager />}
+          {active === "enrollments" && <EnrollmentManager />}
+          {active === "settings" && <SettingsManager />}
         </div>
       </main>
     </div>

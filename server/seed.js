@@ -6,6 +6,7 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const Gallery = require("./models/Gallery");
 const Blog = require("./models/Blog");
+const User = require("./models/User");
 
 const galleryItems = [
   {
@@ -13,36 +14,42 @@ const galleryItems = [
     category: "Academy",
     description: "Students mastering the art of fabric draping on dress forms.",
     gradient: "from-emerald-900 via-neutral-900 to-neutral-800",
+    image: "/images/gallery_draping.png",
   },
   {
     title: "Pattern Making",
     category: "Production",
     description: "Precision CAD patterns graded for high-volume manufacturing.",
     gradient: "from-neutral-800 via-neutral-900 to-emerald-950",
+    image: "/images/gallery_pattern.png",
   },
   {
     title: "Sewing Line",
     category: "Production",
     description: "Industrial sewing operations producing quality garments at scale.",
     gradient: "from-neutral-900 via-emerald-950 to-neutral-800",
+    image: "/images/gallery_sewing.png",
   },
   {
     title: "Student Collection",
     category: "Academy",
     description: "Final year showcase featuring original student designs.",
     gradient: "from-emerald-950 via-neutral-900 to-neutral-800",
+    image: "/images/gallery_collection.png",
   },
   {
     title: "Fabric Lab",
     category: "Lab",
     description: "Testing fabric behavior, shrinkage, and wash durability.",
     gradient: "from-neutral-800 via-emerald-950 to-neutral-900",
+    image: "/images/gallery_fabric_lab.png",
   },
   {
     title: "Fashion Show",
     category: "Events",
     description: "Annual runway event celebrating Yeti talent and craftsmanship.",
     gradient: "from-neutral-900 via-neutral-800 to-emerald-950",
+    image: "/images/gallery_fashion_show.png",
   },
 ];
 
@@ -107,6 +114,18 @@ async function seed() {
   try {
     const galleryCount = await Gallery.countDocuments();
     const blogCount = await Blog.countDocuments();
+    const userCount = await User.countDocuments();
+
+    if (userCount === 0) {
+      console.log("Seeding default superadmin...");
+      await User.create({
+        username: process.env.ADMIN_USERNAME || "admin",
+        password: process.env.ADMIN_PASSWORD || "admin123",
+        role: "superadmin",
+        permissions: ["gallery", "blog", "messages", "enrollments"],
+      });
+      console.log("✅ Seeded default superadmin");
+    }
 
     if (galleryCount === 0 && blogCount === 0) {
       console.log("Seeding initial data...");
