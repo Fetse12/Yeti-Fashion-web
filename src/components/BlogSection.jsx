@@ -81,7 +81,16 @@ function FeaturedPost({ post }) {
     >
       <div className="flex flex-col lg:flex-row">
         {/* Left visual block */}
-        <div className="relative flex min-h-[280px] flex-col justify-end bg-gradient-to-br from-neutral-900 via-neutral-800 to-emerald-950 p-8 lg:w-2/5 lg:min-h-0 lg:p-10">
+        <div className="relative flex min-h-[280px] flex-col justify-end overflow-hidden bg-gradient-to-br from-neutral-900 via-neutral-800 to-emerald-950 p-8 lg:w-2/5 lg:min-h-0 lg:p-10">
+          {/* Cover image if available */}
+          {post.coverImage && (
+            <img
+              src={post.coverImage.startsWith("http") ? post.coverImage : `${API_URL}${post.coverImage}`}
+              alt={post.title}
+              className="absolute inset-0 h-full w-full object-cover opacity-60"
+            />
+          )}
+
           {/* Decorative */}
           <div
             className="absolute inset-0 opacity-[0.05]"
@@ -162,8 +171,19 @@ function BlogCard({ post, index }) {
       transition={{ duration: 0.45, delay: index * 0.08 }}
       className="group relative flex flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-yeti-lime/10"
     >
-      {/* Top accent bar */}
-      <div className="h-1 w-full bg-gradient-to-r from-yeti-lime via-yeti-lime/60 to-yeti-lime/20" />
+      {/* Image or top accent bar */}
+      {post.coverImage ? (
+        <div className="relative aspect-video overflow-hidden">
+          <img
+            src={post.coverImage.startsWith("http") ? post.coverImage : `${API_URL}${post.coverImage}`}
+            alt={post.title}
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/20 to-transparent" />
+        </div>
+      ) : (
+        <div className="h-1 w-full bg-gradient-to-r from-yeti-lime via-yeti-lime/60 to-yeti-lime/20" />
+      )}
 
       <div className="flex flex-1 flex-col p-6">
         {/* Meta row */}

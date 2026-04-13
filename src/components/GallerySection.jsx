@@ -95,7 +95,7 @@ function GalleryCard({ item, index }) {
         {/* Uploaded image background */}
         {item.image && (
           <img
-            src={`${API_URL}${item.image}`}
+            src={item.image.startsWith("http") ? item.image : `${API_URL}${item.image}`}
             alt={item.title}
             className="absolute inset-0 h-full w-full object-cover opacity-75 transition-opacity duration-500 group-hover:opacity-95"
           />

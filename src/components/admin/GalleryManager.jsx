@@ -35,6 +35,7 @@ export default function GalleryManager() {
   const [form, setForm] = useState(emptyForm);
   const [imageFile, setImageFile] = useState(null);
   const [saving, setSaving] = useState(false);
+  const [statusMsg, setStatusMsg] = useState(null); // { type: 'success' | 'error', text: string }
 
   const fetchItems = async () => {
     try {
@@ -84,22 +85,31 @@ export default function GalleryManager() {
     try {
       if (editing) {
         await axios.put(`${API_URL}/api/gallery/${editing}`, data, authHeaders());
+        setStatusMsg({ type: "success", text: "Gallery item updated successfully!" });
       } else {
         await axios.post(`${API_URL}/api/gallery`, data, authHeaders());
+        setStatusMsg({ type: "success", text: "New gallery item created successfully!" });
       }
       setShowForm(false);
       fetchItems();
+      // Clear success message after 3 seconds
+      setTimeout(() => setStatusMsg(null), 3000);
     } catch (err) {
-      alert(err.response?.data?.message || "Save failed");
+      const msg = err.response?.data?.message || "Save failed";
+      setStatusMsg({ type: "error", text: msg });
+      alert(msg);
     } finally {
       setSaving(false);
     }
   };
 
   const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this item?")) return;
     try {
       await axios.delete(`${API_URL}/api/gallery/${id}`, authHeaders());
       setItems(items.filter((i) => i._id !== id));
+      setStatusMsg({ type: "success", text: "Gallery item deleted." });
+      setTimeout(() => setStatusMsg(null), 3000);
     } catch (err) {
       alert("Delete failed: " + (err.response?.data?.message || err.message));
     }
@@ -107,6 +117,20 @@ export default function GalleryManager() {
 
   return (
     <div>
+      {/* Status Messages */}
+      {statusMsg && (
+        <div
+          className={`mb-4 rounded-lg p-4 text-sm font-bold shadow-lg transition-all ${
+            statusMsg.type === "success"
+              ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
+              : "bg-red-500/20 text-red-400 border border-red-500/30"
+          }`}
+        >
+          {statusMsg.type === "success" ? "✅ " : "❌ "}
+          {statusMsg.text}
+        </div>
+      )}
+
       {/* Header */}
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
@@ -269,7 +293,7 @@ export default function GalleryManager() {
                     <div className="flex items-center gap-3">
                       {item.image ? (
                         <img
-                          src={`${API_URL}${item.image}`}
+                          src={item.image.startsWith("http") ? item.image : `${API_URL}${item.image}`}
                           alt=""
                           className="h-9 w-9 rounded-lg object-cover"
                         />
