@@ -39,6 +39,12 @@ app.get("/api/health", (req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
-app.listen(PORT, () => {
-  console.log(`🚀 Yeti API server running on http://localhost:${PORT}`);
-});
+// Only listen locally, Vercel will handle production routing
+if (process.env.NODE_ENV !== "production" && !process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`🚀 Yeti API server running on http://localhost:${PORT}`);
+  });
+}
+
+// Export the Express API for Vercel Serverless Functions
+module.exports = app;
